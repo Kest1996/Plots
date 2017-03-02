@@ -15,8 +15,6 @@ public class MainController {
 
     ArrayList<Points> pointsList = new ArrayList<>();
 
-    ArrayList<XYChart.Series> charts = new ArrayList<>();
-
     @FXML
     public VBox itemsContainer;
     @FXML
@@ -24,18 +22,17 @@ public class MainController {
     @FXML
     private AreaChart ac;
     private int i;
+    private XYChart.Series chart;
 
     @FXML
     public void initialize() {
         ac.setTitle("Общее название");
 
-        charts.add(new XYChart.Series());
-        charts.add(new XYChart.Series());
-        charts.add(new XYChart.Series());
+        chart = new XYChart.Series();
 
         addItem();
 
-        ac.getData().addAll(charts);
+        ac.getData().add(chart);
 
         btn.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> addItem());
     }
@@ -49,9 +46,7 @@ public class MainController {
         pane.setText3(p.v3);
         pane.setMinHeight(40);
         itemsContainer.getChildren().add(pane);
-        charts.get(0).getData().add(new XYChart.Data(i, p.v1));
-        charts.get(1).getData().add(new XYChart.Data(i, p.v2));
-        charts.get(2).getData().add(new XYChart.Data(i, p.v3));
+        chart.getData().add(new XYChart.Data(i, p.v1));
         i++;
     }
 
