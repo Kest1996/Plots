@@ -5,14 +5,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="container" alignment="CENTER" spacing="5" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.LayerItemPaneController">
-    <TextField fx:id="tf3" maxWidth="30" />
-    <Label fx:id="label1" textAlignment="CENTER" />
-    <TextField fx:id="tf1" maxWidth="30" />
-    <Label fx:id="label2" textAlignment="CENTER" />
-    <TextField fx:id="tf2" maxWidth="30" />
-    <Label fx:id="label3" textAlignment="CENTER" />
+<?import javafx.scene.control.ChoiceBox?>
+<HBox fx:id="container" alignment="CENTER" spacing="5" stylesheets="@styles.css"
+      xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="main.LayerItemPaneController">
+
+    <Label fx:id="labelD" textAlignment="CENTER" text="d"/>
+    <TextField fx:id="dTextField" maxWidth="40" text="1" alignment="CENTER_RIGHT"/>
+    <Label fx:id="labelAl" textAlignment="CENTER" text="Al"/>
+    <ChoiceBox fx:id="cbAl" maxWidth="40"/>
+    <Label textAlignment="CENTER" text="Ga"/>
+    <Label fx:id="labelGa"  text="1"/>
+    <Label textAlignment="CENTER" text="As"/>
     <padding>
-      <Insets left="5.0" right="5.0" />
-   </padding>
+        <Insets left="5.0" right="5.0"/>
+    </padding>
 </HBox>
