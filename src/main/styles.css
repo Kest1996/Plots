@@ -1,8 +1,38 @@
 .btn {
-    -fx-background-color : #29B6F6;
+    -fx-background-color : #26a9e3;
     -fx-text-fill        : #E1F5FE;
     -fx-background-image: url("../res/ic_add_white.png");
     -fx-background-size: 23 23;
     -fx-background-repeat: no-repeat;
     -fx-background-position:left;
 }
+
+.series {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+    -fx-stroke: #f0e68c;
+    -fx-background-color: #f0e68c, white;
+}
+
+.serie2 {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+    -fx-stroke: #f0e68c;
+    -fx-background-color: #f0e68c, white;
+}
+
+
+.series3 {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+    -fx-stroke: #f0e68c;
+    -fx-background-color: #f0e68c, white;
+}
+
+.default-color0.series { -fx-stroke: #e9967a; }
+.default-color1.series2 { -fx-stroke: #f0e68c; }
+.default-color2.series2 { -fx-stroke: #dda0dd; }
+
+.default-color0.series { -fx-background-color: #dda0dd, white; }
+.default-color1.series2 { -fx-background-color: #dda0dd, white; }
+.default-color2.chart-line-symbol { -fx-background-color: #dda0dd, white; }
