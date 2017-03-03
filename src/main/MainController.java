@@ -2,6 +2,7 @@ package main;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -11,29 +12,29 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    public static final int MAX_SIZE = 100;
-
-    ArrayList<Points> pointsList = new ArrayList<>();
+    private ArrayList<Points> pointsList = new ArrayList<>();
 
     @FXML
     public VBox itemsContainer;
     @FXML
     public Button btn;
     @FXML
-    private AreaChart ac;
+    private AreaChart chart;
     private int i;
-    private XYChart.Series chart;
+    private XYChart.Series series = new XYChart.Series();
 
     @FXML
     public void initialize() {
-        ac.setTitle("Общее название");
+        chart.getData().add(series);
 
-        chart = new XYChart.Series();
+//        Node line = chart.lookup(".default-color0.series-series-area-line");
+//        line.setStyle("-fx-stroke: #26a9e3; ");
+//        Node area = chart.lookup(".default-color0.series-series-area-fill");
+//        area.setStyle("-fx-fill: rgba(38,169,227,0.21); ");
+
+        series.setName("Y = R(λ)");
 
         addItem();
-
-        ac.getData().add(chart);
-
         btn.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> addItem());
     }
 
@@ -46,21 +47,13 @@ public class MainController {
         pane.setText3(p.v3);
         pane.setMinHeight(40);
         itemsContainer.getChildren().add(pane);
-        chart.getData().add(new XYChart.Data(i, p.v1));
+        series.getData().add(new XYChart.Data((float) i / 2f, getFunctionResult(p)));
         i++;
     }
 
-//    private XYChart.Series getRandomChartSeries(String value, int size) {
-//        double koef = MAX_SIZE / size;
-//        XYChart.Series chart1 = new XYChart.Series();
-//        chart1.setName(value);
-//        for (int y = 0; y <= size; y++) {
-//            double x = Math.random();
-//            System.out.println(x + " " + y);
-//            chart1.getData().add(new XYChart.Data(koef * y, x));
-//        }
-//        return chart1;
-//    }
+    private double getFunctionResult(Points p) {
+        return p.v1 + p.v2 + p.v3;
+    }
 
     private class Points {
         double v1 = Math.random();
