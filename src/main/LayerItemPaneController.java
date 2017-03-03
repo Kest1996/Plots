@@ -22,10 +22,16 @@ public class LayerItemPaneController implements Initializable {
     public TextField tf3;
 
     @FXML
-    public Label label;
+    public Label label1;
+    @FXML
+    public Label label2;
+    @FXML
+    public Label label3;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        label.setText("слой");
+        label1.setText("Al");
+        label2.setText("Ga");
+        label3.setText("As");
     }
 }

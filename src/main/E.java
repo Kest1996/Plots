@@ -1,8 +1,5 @@
 package main;
 
-/**
- * Created by Lvbnhbq on 03.03.2017.
- */
 public class E implements Matrix {
     @Override
     public double M11() {

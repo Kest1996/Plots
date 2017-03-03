@@ -1,7 +1,6 @@
 package main;
 
 public interface Matrix {
-
     double M11();
     double M12();
     double M21();
