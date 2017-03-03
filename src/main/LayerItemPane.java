@@ -24,14 +24,8 @@ public class LayerItemPane extends Pane {
     public void setText1(double str) {
         controller.tf1.setText(String.valueOf(str));
     }
-    public String getText1() {
-        return controller.tf1.getText();
-    }
     public void setText2(double str) {
         controller.tf2.setText(String.valueOf(str));
-    }
-    public String getText2() {
-        return controller.tf2.getText();
     }
     public void setText3(double str) {
         controller.tf3.setText(String.valueOf(str));

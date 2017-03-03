@@ -19,7 +19,6 @@ public class MainController {
     public Button btn;
     @FXML
     private AreaChart chart;
-    private double d;
     private int i;
     private XYChart.Series series = new XYChart.Series();
 
@@ -43,10 +42,8 @@ public class MainController {
         Points p = new Points();
         pointsList.add(p);
         pane.setText1(p.v1);
-        d = Double.valueOf(pane.getText1());
-        System.out.println(d);
-//        pane.setText2(p.v2);
-//        pane.setText3(p.v3);
+        pane.setText2(p.v2);
+        pane.setText3(p.v3);
         pane.setMinHeight(40);
         itemsContainer.getChildren().add(pane);
         series.getData().add(new XYChart.Data((float) i / 2f, getFunctionResult(p)));
@@ -54,10 +51,12 @@ public class MainController {
     }
 
     private double getFunctionResult(Points p) {
-        return p.v1;
+        return p.v1 + p.v2 + p.v3;
     }
 
     private class Points {
         double v1 = Math.random();
+        double v2 = Math.random();
+        double v3 = Math.random();
     }
 }
