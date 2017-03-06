@@ -1,6 +1,7 @@
 package main;
 
 public class AlGaAs implements Matrix {
+    final static int SIZE = 2;
 
     private double lamx;
     private double x;
@@ -36,42 +37,16 @@ public class AlGaAs implements Matrix {
     }
 
     @Override
-    public double M11() {
-        return Math.cos(fi(d, n())) * ch(fi(d, k()));
-    }
-
-    @Override
-    public double M12() {
-        return (n() * Math.sin(fi(d, n())) * ch(fi(d, k())) + k() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
-    }
-
-    @Override
-    public double M21() {
-        return n() * Math.sin(fi(d, n())) * ch(fi(d, k())) - k() * Math.cos(fi(d, n())) * sh(fi(d, k()));
-    }
-
-    @Override
-    public double M22() {
-        return Math.cos(fi(d, n())) * ch(fi(d, k()));
-    }
-
-    @Override
-    public double Mi11() {
-        return Math.sin(fi(d, n())) * sh(fi(d, k()));
-    }
-
-    @Override
-    public double Mi12() {
-        return (k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
-    }
-
-    @Override
-    public double Mi21() {
-        return -k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()));
-    }
-
-    @Override
-    public double Mi22() {
-        return Math.sin(fi(d, n())) * sh(fi(d, k()));
+    public double[][][] matrix() {
+        double[][][] m = new double[SIZE][SIZE][SIZE];
+            m[0][0][0] = Math.cos(fi(d, n())) * ch(fi(d, k()));
+            m[0][1][0] = (n() * Math.sin(fi(d, n())) * ch(fi(d, k())) + k() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
+            m[1][0][0] = n() * Math.sin(fi(d, n())) * ch(fi(d, k())) - k() * Math.cos(fi(d, n())) * sh(fi(d, k()));
+            m[1][1][0] = Math.cos(fi(d, n())) * ch(fi(d, k()));
+            m[0][0][1] = Math.sin(fi(d, n())) * sh(fi(d, k()));
+            m[0][1][1] = (k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
+            m[1][0][1] = -k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()));
+            m[1][1][1] = Math.sin(fi(d, n())) * sh(fi(d, k()));
+        return m;
     }
 }

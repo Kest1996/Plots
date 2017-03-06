@@ -1,43 +1,19 @@
 package main;
 
 public class E implements Matrix {
-    @Override
-    public double M11() {
-        return 1;
-    }
+    final static int SIZE = 2;
 
     @Override
-    public double M12() {
-        return 0;
-    }
-
-    @Override
-    public double M21() {
-        return 0;
-    }
-
-    @Override
-    public double M22() {
-        return 1;
-    }
-
-    @Override
-    public double Mi11() {
-        return 0;
-    }
-
-    @Override
-    public double Mi12() {
-        return 0;
-    }
-
-    @Override
-    public double Mi21() {
-        return 0;
-    }
-
-    @Override
-    public double Mi22() {
-        return 0;
+    public double[][][] matrix() {
+        double[][][] m = new double[SIZE][SIZE][SIZE];
+            m[0][0][0] = 1;
+            m[0][1][0] = 0;
+            m[1][0][0] = 0;
+            m[1][1][0] = 1;
+            m[0][0][1] = 0;
+            m[0][1][1] = 0;
+            m[1][0][1] = 0;
+            m[1][1][1] = 0;
+        return m;
     }
 }
