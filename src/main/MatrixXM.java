@@ -1,66 +1,50 @@
 package main;
 
-public class MatrixXM implements Matrix {
-
-    private Matrix A;
-    private Matrix B;
+public class MatrixXM {
     private double n0, nl;
     private double kl;
+    private final int SIZE = 2;
 
-    public MatrixXM(Matrix A, Matrix B, double n0, double nl, double kl){
-        this.A = A;
-        this.B = B;
+    double[][][] m = new double[SIZE][SIZE][SIZE];
+
+    public MatrixXM(double n0, double nl, double kl) {
         this.n0 = n0;
         this.nl = nl;
         this.kl = kl;
     }
 
-    @Override
-    public double M11() {
-        return A.M11() * B.M11() - A.Mi11() * B.Mi11() - A.M12() * B.M21() + A.Mi12() * B.Mi21();
+    public double[][][] MatrixXM(double[][][] A, double[][][] B){
+        m[0][0][0] = A[0][0][0] * B[0][0][0] - A[0][0][1] * B[0][0][1] - A[0][1][0] * B[1][0][0] + A[0][1][1] * B[1][0][1];
+        m[0][1][0] = A[0][0][0] * B[0][1][0] - A[0][0][1] * B[0][1][1] + A[0][1][0] * B[1][1][0] - A[0][1][1] * B[1][1][1];
+        m[1][0][0] = A[1][1][0] * B[1][0][0] - A[1][1][1] * B[1][0][1] + A[1][0][0] * B[0][0][0] - A[1][0][1] * B[0][0][1];
+        m[1][1][0] = A[1][1][0] * B[1][1][0] - A[1][1][1] * B[1][1][1] - A[1][0][0] * B[0][1][0] + A[1][0][1] * B[0][1][1];
+        m[0][0][1] = A[0][0][0] * B[0][0][1] + A[0][0][1] * B[0][0][0] - A[0][1][0] * B[1][0][1] - A[0][1][1] * B[1][0][0];
+        m[0][1][1] = A[0][0][0] * B[0][1][1] + A[0][0][1] * B[0][1][0] + A[0][1][0] * B[1][1][1] + A[0][1][1] * B[1][1][0];
+        m[1][0][1] = A[1][1][0] * B[1][0][1] + A[1][1][1] * B[1][0][0] + A[1][0][0] * B[0][0][1] + A[1][0][1] * B[0][0][0];
+        m[1][1][1] = A[1][1][0] * B[1][1][1] + A[1][1][1] * B[1][1][0] - A[1][0][0] * B[0][1][1] - A[1][0][1] * B[0][1][0];
+        return m;
     }
 
-    @Override
-    public double M12() {
-        return A.M11() * B.M12() - A.Mi11() * B.Mi12() + A.M12() * B.M22() - A.Mi12() * B.Mi22();
+    public double[][][] matrix() {
+        double[][][] getm = new double[SIZE][SIZE][SIZE];
+        getm[0][0][0] = m[0][0][0];
+        getm[0][1][0] = m[0][1][0];
+        getm[1][0][0] = m[1][0][0];
+        getm[1][1][0] = m[1][1][0];
+        getm[0][0][1] = m[0][0][1];
+        getm[0][1][1] = m[0][1][1];
+        getm[1][0][1] = m[1][0][1];
+        getm[1][1][1] = m[1][1][1];
+        return getm;
     }
 
-    @Override
-    public double M21() {
-        return A.M22() * B.M21() - A.Mi22() * B.Mi21() + A.M21() * B.M11() - A.Mi21() * B.Mi11();
-    }
+    public double matrixR() {
 
-    @Override
-    public double M22() {
-        return A.M22() * B.M22() - A.Mi22() * B.Mi22() - A.M21() * B.M12() + A.Mi21() * B.Mi12();
-    }
+        double V = n0 * m[0][0][0] + m[1][0][1] - nl * (n0 * m[0][1][1] + m[1][1][0]) + kl * (n0 * m[0][1][0] - m[1][1][1]);
+        double Z = n0 * m[0][0][1] - m[1][0][0] + nl * (n0 * m[0][1][0] - m[1][1][1]) + kl * (n0 * m[0][1][1] + m[1][1][0]);
+        double X = n0 * m[0][0][0] - m[1][0][1] - nl * (n0 * m[0][1][1] - m[1][1][0]) + kl * (n0 * m[0][1][0] + m[1][1][1]);
+        double Y = n0 * m[0][0][1] + m[1][0][0] + nl * (n0 * m[0][1][0] + m[1][1][1]) + kl * (n0 * m[0][1][1] - m[1][1][0]);
 
-    @Override
-    public double Mi11() {
-        return A.M11() * B.Mi11() + A.Mi11() * B.M11() - A.M12() * B.Mi21() - A.Mi12() * B.M21();
-    }
-
-    @Override
-    public double Mi12() {
-        return A.M11() * B.Mi12() + A.Mi11() * B.M12() + A.M12() * B.Mi22() + A.Mi12() * B.M22();
-    }
-
-    @Override
-    public double Mi21() {
-        return A.M22() * B.Mi21() + A.Mi22() * B.M21() + A.M21() * B.Mi11() + A.Mi21() * B.M11();
-    }
-
-    @Override
-    public double Mi22() {
-        return A.M22() * B.Mi22() + A.Mi22() * B.M22() - A.M21() * B.Mi12() - A.Mi21() * B.M12();
-    }
-
-    public double R(){
-        double V = n0 * M11() + Mi21() - nl*(n0*Mi12()+M22()) + kl*(n0*M12()-Mi22());
-        double Z = n0 * Mi11() - M21() + nl*(n0*M12()-Mi22()) + kl*(n0*Mi12()+M22());
-        double X = n0 * M11() - Mi21() - nl*(n0*Mi12()-M22()) + kl*(n0*M12()+Mi22());
-        double Y = n0 * Mi11() + M21() + nl*(n0*M12()+Mi22()) + kl*(n0*Mi12()-M22());
-
-        return (V*V+Z*Z)/(X*X+Y*Y);
+        return (V * V + Z * Z) / (X * X + Y * Y);
     }
 }
