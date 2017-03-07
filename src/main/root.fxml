@@ -30,7 +30,7 @@
             <AreaChart fx:id="chart" AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="5"
                        AnchorPane.rightAnchor="5" AnchorPane.topAnchor="5">
                 <xAxis>
-                    <NumberAxis minorTickCount="0" side="BOTTOM"/>
+                    <NumberAxis side="BOTTOM"/>
                 </xAxis>
                 <yAxis>
                     <NumberAxis side="LEFT"/>

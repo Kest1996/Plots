@@ -10,6 +10,9 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    public static final int MIN_LAMBDA = 350;
+    public static final int MAX_LAMBDA = 1200;
+
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));

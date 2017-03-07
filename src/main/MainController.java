@@ -2,6 +2,7 @@ package main;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -22,11 +23,14 @@ public class MainController {
 
     @FXML
     public void initialize() {
+        ((NumberAxis) chart.getXAxis()).setLowerBound(Main.MIN_LAMBDA);
         chart.getData().add(series);
 
         series.setName("Y = R(λ)");
-
-        addItem();
+        for (int lambda = Main.MIN_LAMBDA; lambda < Main.MAX_LAMBDA; lambda++) {
+            XYChart.Data point = new XYChart.Data(lambda, 1);
+            series.getData().add(lambda - Main.MIN_LAMBDA, point);
+        }
         btn.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> addItem());
     }
 

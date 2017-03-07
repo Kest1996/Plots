@@ -3,11 +3,11 @@ package main;
 public class AlGaAs implements Matrix {
     final static int SIZE = 2;
 
-    private double lamx;
+    private int lamx;
     private double x;
     private double d;
 
-    public AlGaAs (double x, double d, double lamx) {
+    public AlGaAs (double x, double d, int lamx) {
         this.x = x;
         this.d = d;
         this.lamx = lamx;
