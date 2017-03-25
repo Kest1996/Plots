@@ -6,8 +6,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 
 public class MainController {
 
@@ -17,25 +17,27 @@ public class MainController {
     @FXML
     public Button btn;
     @FXML
-    private AreaChart chart;
+    public AnchorPane chartPane;
     private int maxPosition;
-    private XYChart.Series series = new XYChart.Series();
 
     @FXML
     public void initialize() {
-        ((NumberAxis) chart.getXAxis()).setLowerBound(Main.MIN_LAMBDA);
+        final NumberAxis xAxis = new NumberAxis(Data.MIN_LAMBDA, Data.MAX_LAMBDA, 10);
+        final NumberAxis yAxis = new NumberAxis();
+        AreaChart chart = new AreaChart<>(xAxis, yAxis);
+        XYChart.Series series = Data.getInstance().series;
         chart.getData().add(series);
-
-        series.setName("Y = R(λ)");
-        for (int lambda = Main.MIN_LAMBDA; lambda < Main.MAX_LAMBDA; lambda++) {
-            XYChart.Data point = new XYChart.Data(lambda, 1);
-            series.getData().add(lambda - Main.MIN_LAMBDA, point);
-        }
+        chart.setAnimated(false);
+        chart.setMinSize(2000, -1);
+        chartPane.getChildren().add(chart);
+        AnchorPane.setBottomAnchor(chart, 5.0);
+        AnchorPane.setTopAnchor(chart, 5.0);
+        AnchorPane.setLeftAnchor(chart, 5.0);
         btn.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> addItem());
     }
 
     private void addItem() {
-        LayerItemPane pane = new LayerItemPane(maxPosition, series.getData());
+        LayerItemPane pane = new LayerItemPane(maxPosition);
         pane.setMinHeight(40);
         itemsContainer.getChildren().add(pane);
         maxPosition++;

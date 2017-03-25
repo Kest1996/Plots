@@ -1,9 +1,7 @@
 package main;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -17,10 +15,9 @@ public class LayerItemPane extends Pane {
     private double ga;
     private double al;
     private int d;
-    private ObservableList data;
 
 
-    public LayerItemPane(int i, ObservableList data) {
+    public LayerItemPane(int i) {
         position = i;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layer_item.fxml"));
         fxmlLoader.setControllerFactory(param -> controller = new LayerItemPaneController());
@@ -30,24 +27,9 @@ public class LayerItemPane extends Pane {
         }
         getChildren().add(view);
 
-        setDataSeries(data);
-        setAl(LayerItemPaneController.alKoefs[controller.cbAl.getSelectionModel().getSelectedIndex()]);
-        setD(controller.dTextField.getText());
-        updateChartPoint();
-    }
-
-    private void setAl(Double alKoef) {
-        al = alKoef;
-        ga = BigDecimal.valueOf(1).subtract(BigDecimal.valueOf(al)).doubleValue();
-        controller.labelGa.setText(String.valueOf(ga));
-    }
-
-
-    public void setDataSeries(ObservableList data) {
-        this.data = data;
         controller.cbAl.valueProperty().addListener((observable, oldAl, newAl) -> {
             setAl((Double) newAl);
-            updateChartPoint();
+            updateKoefs();
         });
 
         controller.dTextField.textProperty().addListener((observable, oldD, newD) -> {
@@ -63,26 +45,28 @@ public class LayerItemPane extends Pane {
             }
 
             setD(newD);
-            updateChartPoint();
+            updateKoefs();
         });
+
+        int positionAl = controller.cbAl.getSelectionModel().getSelectedIndex();
+        setAl(LayerItemPaneController.alKoefs[positionAl]);
+        setD(controller.dTextField.getText());
+        updateKoefs();
+    }
+
+    public void updateKoefs() {
+        Data.getInstance().setKoefs(position, al, ga, d);
+    }
+
+    private void setAl(Double alKoef) {
+        al = alKoef;
+        ga = BigDecimal.valueOf(1).subtract(BigDecimal.valueOf(al)).doubleValue();
+        controller.labelGa.setText(String.valueOf(ga));
     }
 
     private void setD(String newD) {
         if (newD != null && !newD.isEmpty()) {
             d = Integer.valueOf(newD);
         }
-    }
-
-    private void updateChartPoint() {
-        XYChart.Data point = new XYChart.Data(position, getFunctionResult());
-        if (position >= data.size()) {
-            data.add(position, point);
-        } else {
-            data.set(position, point);
-        }
-    }
-
-    private double getFunctionResult() {
-        return d * al * ga;
     }
 }

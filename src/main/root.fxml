@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
 <StackPane prefHeight="600" prefWidth="1000" xmlns="http://javafx.com/javafx/8.0.101"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MainController" stylesheets="@styles.css">
     <SplitPane dividerPositions="0.3">
@@ -26,16 +24,9 @@
                     styleClass="btn"
                     text="    Новый слой"/>
         </AnchorPane>
-        <AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="160.0" prefWidth="640.0">
-            <AreaChart fx:id="chart" AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="5"
-                       AnchorPane.rightAnchor="5" AnchorPane.topAnchor="5">
-                <xAxis>
-                    <NumberAxis side="BOTTOM"/>
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT"/>
-                </yAxis>
-            </AreaChart>
-        </AnchorPane>
+
+        <ScrollPane minHeight="200.0" minWidth="200.0" prefHeight="160.0" prefWidth="640.0">
+            <AnchorPane fx:id="chartPane" minHeight="580.0"/>
+        </ScrollPane>
     </SplitPane>
 </StackPane>
