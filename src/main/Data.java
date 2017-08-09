@@ -15,6 +15,7 @@ public class Data {
     private final ArrayList<Double> gaList = new ArrayList<>();
     public final XYChart.Series series = new XYChart.Series();
     private static Data data;
+    RecMatrix recMatrix;
 
     public static synchronized Data getInstance() {
         if (data == null) {
@@ -46,12 +47,12 @@ public class Data {
 
     private void updateSeries() {
         for (int lambda = MIN_LAMBDA; lambda < MAX_LAMBDA; lambda++) {
-            XYChart.Data<Integer, Double> point = new XYChart.Data<>(lambda, getR());
+            XYChart.Data<Integer, Double> point = new XYChart.Data<>(lambda, getR(lambda));
             series.getData().set(lambda - MIN_LAMBDA, point);
         }
     }
 
-    public double getR() {
-        return Math.random();
+    public double getR(int Lambda) {
+        return 0.5;
     }
 }
