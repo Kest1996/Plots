@@ -21,7 +21,7 @@ public class AlGaAs implements Matrix {
         return (Math.exp(x)-Math.exp(-x))/2;
     }
 
-    private double n(){
+    public double n(){
         double E0 = 3.65 + 0.871 * x + 0.179 * x * x;
         double Ed = 36.1 - 2.45 * x;
         double E = 1239.85/lamx;
@@ -39,14 +39,15 @@ public class AlGaAs implements Matrix {
     @Override
     public double[][][] matrix() {
         double[][][] m = new double[SIZE][SIZE][SIZE];
-            m[0][0][0] = Math.cos(fi(d, n())) * ch(fi(d, k()));
-            m[0][1][0] = (n() * Math.sin(fi(d, n())) * ch(fi(d, k())) + k() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
-            m[1][0][0] = n() * Math.sin(fi(d, n())) * ch(fi(d, k())) - k() * Math.cos(fi(d, n())) * sh(fi(d, k()));
-            m[1][1][0] = Math.cos(fi(d, n())) * ch(fi(d, k()));
-            m[0][0][1] = Math.sin(fi(d, n())) * sh(fi(d, k()));
-            m[0][1][1] = (k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
-            m[1][0][1] = -k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()));
-            m[1][1][1] = Math.sin(fi(d, n())) * sh(fi(d, k()));
+        m[0][0][0] = Math.cos(fi(d, n())) * ch(fi(d, k()));
+        m[0][1][0] = (n() * Math.sin(fi(d, n())) * ch(fi(d, k())) + k() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
+        m[1][0][0] = n() * Math.sin(fi(d, n())) * ch(fi(d, k())) - k() * Math.cos(fi(d, n())) * sh(fi(d, k()));
+        m[1][1][0] = Math.cos(fi(d, n())) * ch(fi(d, k()));
+        m[0][0][1] = Math.sin(fi(d, n())) * sh(fi(d, k()));
+        m[0][1][1] = (k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()))) / (n() * n() + k() * k());
+        m[1][0][1] = -k() * Math.sin(fi(d, n())) * ch(fi(d, k())) - n() * Math.cos(fi(d, n())) * sh(fi(d, k()));
+        m[1][1][1] = Math.sin(fi(d, n())) * sh(fi(d, k()));
         return m;
     }
+
 }

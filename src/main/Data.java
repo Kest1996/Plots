@@ -13,9 +13,13 @@ public class Data {
     private final ArrayList<Double> alList = new ArrayList<>();
     private final ArrayList<Integer> dList = new ArrayList<>();
     private final ArrayList<Double> gaList = new ArrayList<>();
+    private final ArrayList<AlGaAs> alGaAsList = new ArrayList<>();
+
     public final XYChart.Series series = new XYChart.Series();
     private static Data data;
     RecMatrix recMatrix;
+    int p = 0;
+    double d = 0;
 
     public static synchronized Data getInstance() {
         if (data == null) {
@@ -53,6 +57,26 @@ public class Data {
     }
 
     public double getR(int Lambda) {
-        return 0.5;
+        for (int i = 0; i < alList.size(); i++) {
+            alGaAsList.add(new AlGaAs(alList.get(i), dList.get(i), Lambda));
+        }
+
+        E e = new E();
+
+        MatrixX matrixX = new MatrixX();
+
+        Reflektor reflektor = new Reflektor(1, alGaAsList.get(alGaAsList.size()-1).n(), 0);
+
+        MatrixCalc matrixCalc = new MatrixCalc();
+
+        matrixX.setM(matrixCalc.AxB(e.matrix(), e.matrix()));
+
+        for (int i = 0; i < alGaAsList.size(); i++) {
+            matrixX.setM(matrixCalc.AxB(matrixX.matrix(), alGaAsList.get(i).matrix()));
+        }
+
+        alGaAsList.clear();
+
+        return reflektor.R(matrixX.matrix());
     }
 }
